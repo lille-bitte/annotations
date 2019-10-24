@@ -1,0 +1,30 @@
+{
+	"name": "lille-bitte/annotations",
+	"type": "library",
+	"description": "DocBlock Annotation Parser",
+	"license": "BSD-3-Clause",
+	"keywords": [
+		"doc-comment",
+		"doc-block",
+		"parser",
+		"doc-comment-annotation-parser",
+		"doc-block-annotation-parser"
+	],
+	"config": {
+		"sort-packages": true
+	},
+	"autoload": {
+		"psr-4": {
+			"LilleBitte\\Annotations\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"LilleBitte\\Annotations\\Tests\\": "tests/"
+		}
+	},
+	"require": {
+		"php": "^5.6"
+	},
+	"minimum-stability": "dev"
+}
