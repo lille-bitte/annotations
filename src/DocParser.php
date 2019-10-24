@@ -208,7 +208,6 @@ class DocParser
 		}
 
 		$this->assert(DocLexer::T_CLOSE_PARENTHESIS, __METHOD__, ')');
-
 		return $res;
 	}
 
@@ -235,8 +234,7 @@ class DocParser
 	{
 		$this->lexer->next();
 
-		$token = $this->lexer->getToken();
-		$key = $token['value'];
+		$key = $this->lexer->getTokenValue();
 
 		$this->assert(DocLexer::T_ASSIGN, __METHOD__, '=');
 
@@ -279,7 +277,24 @@ class DocParser
 				$token = $this->lexer->getTokenValue();
 				$ret = $token[0] === '-'
 					? intval(substr($token, 1)) * -1
-					: intval(substr($token, 0));
+					: ($token[0] === '+'
+						? intval(substr($token, 1))
+						: intval(substr($token, 0)));
+
+				return $ret;
+			case DocLexer::T_FLOAT:
+				$this->assert(
+					DocLexer::T_FLOAT,
+					__METHOD__,
+					$this->lexer->serializeType(DocLexer::T_FLOAT)
+				);
+
+				$token = $this->lexer->getTokenValue();
+				$ret = $token[0] === '-'
+					? floatval(substr($token, 1)) * -1.0
+					: ($token[0] === '+'
+						? floatval(substr($token, 1))
+						: floatval(substr($token, 0)));
 
 				return $ret;
 			case DocLexer::T_TRUE:
