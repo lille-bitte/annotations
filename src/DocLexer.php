@@ -72,9 +72,10 @@ class DocLexer extends AbstractLexer
 			return self::T_STRING;
 		}
 
-		if ((($token[0] === '+' || $token[0] === '-') && \ctype_digit(\substr($token, 1))) ||
-			\ctype_digit($token)) {
-			return self::T_INTEGER;
+		if (is_numeric($token)) {
+			return false !== strpos($token, '.')
+				? self::T_FLOAT
+				: self::T_INTEGER;
 		}
 
 		if ($token === "true") {
@@ -119,6 +120,6 @@ class DocLexer extends AbstractLexer
 	 */
 	public function getPattern()
 	{
-		return '/([a-z\\\\_][a-z_\\\\]*)|([\+\-]?[0-9]+)|("(?:\"\"|[^\"])*+")|(.)|\s+|\*+/im';
+		return '/([a-z\\\\_][a-z0-9_\\\\]*)|([\+\-]?[0-9]+(?:[\.][0-9]+)*)|("(?:\"\"|[^\"])*+")|(.)|\s+|\*+/im';
 	}
 }
