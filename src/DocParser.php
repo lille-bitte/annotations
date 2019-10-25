@@ -21,8 +21,13 @@ class DocParser
 	 * @var array
 	 */
 	private $ignoredAnnotationNames = [
-		'var'
+		'var', 'author'
 	];
+
+	/**
+	 * @var array
+	 */
+	private $uses;
 
 	public function __construct(AbstractLexer $lexer = null)
 	{
@@ -151,6 +156,22 @@ class DocParser
 		$ret->instance = $instance;
 
 		return $ret;
+	}
+
+	/**
+	 *
+	 */
+	public function setClassUses($uses)
+	{
+		$this->uses = $uses;
+	}
+
+	/**
+	 *
+	 */
+	public function getClassUses()
+	{
+		return $this->uses;
 	}
 
 	/**
