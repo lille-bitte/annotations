@@ -24,7 +24,7 @@ class DocParser
 		'var'
 	];
 
-	public function __construct(DocLexer $lexer = null)
+	public function __construct(AbstractLexer $lexer = null)
 	{
 		$this->lexer = (null === $lexer)
 			? new DocLexer
