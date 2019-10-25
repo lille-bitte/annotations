@@ -39,4 +39,15 @@ class AnnotationException
 			)
 		);
 	}
+
+	public static function invalidArgument($method, $message)
+	{
+		return new \InvalidArgumentException(
+			sprintf(
+				"[%s] %s",
+				$method,
+				$message
+			)
+		);
+	}
 }
