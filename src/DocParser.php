@@ -34,8 +34,6 @@ class DocParser
 		$this->lexer = (null === $lexer)
 			? new DocLexer
 			: $lexer;
-
-		$this->isActive = false;
 	}
 
 	/**
