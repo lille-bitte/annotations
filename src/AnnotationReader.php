@@ -24,6 +24,10 @@ class AnnotationReader implements ReaderInterface
 	 */
 	public function getClassAnnotations(\ReflectionClass $class)
 	{
+		$this->parser->setClassUses(
+			\LilleBitte\Annotations\getClassUses($class->getFileName())
+		);
+
 		return $this->parser->parse(
 			$class->getDocComment(),
 			sprintf("class %s", $class->getName())
@@ -60,6 +64,10 @@ class AnnotationReader implements ReaderInterface
 			"method %s::%s",
 			$class->getName(),
 			$method->getName()
+		);
+
+		$this->parser->setClassUses(
+			\LilleBitte\Annotations\getClassUses($class->getFileName())
 		);
 
 		return $this->parser->parse(
@@ -100,6 +108,10 @@ class AnnotationReader implements ReaderInterface
 			"property %s::\$%s",
 			$class->getName(),
 			$property->getName()
+		);
+
+		$this->parser->setClassUses(
+			\LilleBitte\Annotations\getClassUses($class->getFileName())
 		);
 
 		return $this->parser->parse(
