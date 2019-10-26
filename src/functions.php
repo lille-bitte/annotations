@@ -12,7 +12,7 @@ namespace LilleBitte\Annotations;
  * @param string $file File name.
  * @return string
  */
-function readFile($file)
+function readFile($file): string
 {
 	if (!is_file($file)) {
 		throw AnnotationException::invalidArgument(
@@ -52,7 +52,7 @@ function readFile($file)
  * @param string $file File name.
  * @return array
  */
-function getNamespaces($file)
+function getNamespaces($file): array
 {
 	$tokenizer = new InternalTokenizer(
 		readFile($file)
@@ -93,7 +93,7 @@ function getNamespaces($file)
  * @param string $file File name.
  * @return array
  */
-function getClassUses($file)
+function getClassUses($file): array
 {
 	$tokenizer = new InternalTokenizer(
 		readFile($file)
