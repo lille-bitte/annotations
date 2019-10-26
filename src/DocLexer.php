@@ -118,7 +118,7 @@ class DocLexer extends AbstractLexer
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getPattern()
+	public function getPattern(): string
 	{
 		return '/([a-z\\\\_][a-z0-9_\\\\]*)|([\+\-]?[0-9]+(?:[\.][0-9]+)*)|("(?:\"\"|[^\"])*+")|(.)|\s+|\*+/i';
 	}
