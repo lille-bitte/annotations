@@ -95,7 +95,7 @@ abstract class AbstractLexer
 	 *
 	 * @return boolean
 	 */
-	public function next()
+	public function next(): bool
 	{
 		$this->token = isset($this->input[$this->position])
 			? $this->input[$this->position++]
@@ -121,7 +121,7 @@ abstract class AbstractLexer
 	 * @param integer $type Token type.
 	 * @return boolean
 	 */
-	public function isNextToken($type)
+	public function isNextToken($type): bool
 	{
 		return $type === $this->nextTokenType();
 	}
