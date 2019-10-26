@@ -71,7 +71,7 @@ class DocParser
 	 *
 	 * @return string
 	 */
-	public function getContext()
+	public function getContext(): string
 	{
 		return $this->context;
 	}
