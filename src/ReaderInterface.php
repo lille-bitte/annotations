@@ -14,7 +14,7 @@ interface ReaderInterface
 	 *                                should be read.
 	 * @return array
 	 */
-	public function getClassAnnotations(\ReflectionClass $class);
+	public function getClassAnnotations(\ReflectionClass $class): array;
 
 	/**
 	 * Get a class annotation.
@@ -33,7 +33,7 @@ interface ReaderInterface
 	 *                                  should be read.
 	 * @return array
 	 */
-	public function getMethodAnnotations(\ReflectionMethod $method);
+	public function getMethodAnnotations(\ReflectionMethod $method): array;
 
 	/**
 	 * Get a method annotation.
@@ -52,7 +52,7 @@ interface ReaderInterface
 	 *                                      should be read.
 	 * @return array
 	 */
-	public function getPropertyAnnotations(\ReflectionProperty $property);
+	public function getPropertyAnnotations(\ReflectionProperty $property): array;
 
 	/**
 	 * Get a property annotation.
