@@ -193,7 +193,7 @@ abstract class AbstractLexer
 	 *
 	 * @return integer
 	 */
-	public function getPosition()
+	public function getPosition(): int
 	{
 		return $this->position;
 	}
@@ -213,7 +213,7 @@ abstract class AbstractLexer
 	 *
 	 * @return string
 	 */
-	public function getTokenValue()
+	public function getTokenValue(): string
 	{
 		return $this->token['value'];
 	}
@@ -239,5 +239,5 @@ abstract class AbstractLexer
 	 *
 	 * @return string
 	 */
-	abstract public function getPattern();
+	abstract public function getPattern(): string;
 }
