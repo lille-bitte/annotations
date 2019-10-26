@@ -12,6 +12,13 @@ use LilleBitte\Exception\ClassNotExistsException;
  */
 class AnnotationException
 {
+	/**
+	 * Return a syntax error exception.
+	 *
+	 * @param string $method Method name which triggers the error.
+	 * @param string $expected Expected value.
+	 * @return SyntaxErrorException
+	 */
 	public static function syntaxError($method, $expected): SyntaxErrorException
 	{
 		return new SyntaxErrorException(
@@ -23,6 +30,13 @@ class AnnotationException
 		);
 	}
 
+	/**
+	 * Return a class not exists exception.
+	 *
+	 * @param string $method Method name which triggers the error.
+	 * @param string $class Class name.
+	 * @return ClassNotExistsException
+	 */
 	public static function classNotExists($method, $class): ClassNotExistsException
 	{
 		return new ClassNotExistsException(
@@ -34,6 +48,13 @@ class AnnotationException
 		);
 	}
 
+	/**
+	 * Return a runtime exception.
+	 *
+	 * @param string $method Method name which triggers the error.
+	 * @param string $message Error message.
+	 * @return RuntimeException
+	 */
 	public static function runtime($method, $message): RuntimeException
 	{
 		return new RuntimeException(
@@ -45,6 +66,13 @@ class AnnotationException
 		);
 	}
 
+	/**
+	 * Return an invalid argument exception.
+	 *
+	 * @param string $method Method name which triggers the error.
+	 * @param string $message Error message.
+	 * @return InvalidArgumentException
+	 */
 	public static function invalidArgument($method, $message): InvalidArgumentException
 	{
 		return new InvalidArgumentException(
