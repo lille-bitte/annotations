@@ -22,7 +22,7 @@ class AnnotationReader implements ReaderInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getClassAnnotations(\ReflectionClass $class)
+	public function getClassAnnotations(\ReflectionClass $class): array
 	{
 		$this->parser->setClassUses(
 			\LilleBitte\Annotations\getClassUses($class->getFileName())
@@ -57,7 +57,7 @@ class AnnotationReader implements ReaderInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getMethodAnnotations(\ReflectionMethod $method)
+	public function getMethodAnnotations(\ReflectionMethod $method): array
 	{
 		$class = $method->getDeclaringClass();
 		$context = sprintf(
@@ -101,7 +101,7 @@ class AnnotationReader implements ReaderInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getPropertyAnnotations(\ReflectionProperty $property)
+	public function getPropertyAnnotations(\ReflectionProperty $property): array
 	{
 		$class = $property->getDeclaringClass();
 		$context = sprintf(
