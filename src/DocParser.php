@@ -41,9 +41,9 @@ class DocParser
 	 *
 	 * @param string $input Docblock comment.
 	 * @param string $context Parsing context.
-	 * @return object|null
+	 * @return array
 	 */
-	public function parse($input, $context)
+	public function parse($input, $context): array
 	{
 		$this->lexer->setInput($input);
 
@@ -81,7 +81,7 @@ class DocParser
 	 *
 	 * @return array
 	 */
-	private function aggregate()
+	private function aggregate(): array
 	{
 		$res = [];
 
