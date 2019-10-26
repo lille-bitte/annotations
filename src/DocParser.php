@@ -21,7 +21,7 @@ class DocParser
 	 * @var array
 	 */
 	private $ignoredAnnotationNames = [
-		'var', 'author'
+		'var', 'author', 'param', 'return'
 	];
 
 	/**
@@ -118,7 +118,23 @@ class DocParser
 			return null;
 		}
 
-		// check if given class exists..
+		$tmp = \explode("\\", $names);
+
+		// match for an alias.
+		foreach ($this->uses as $el) {
+			if ($tmp[0] === $el['alias']) {
+				$names = sprintf(
+					"%s%s",
+					$el['value'],
+					count($tmp) === 1
+						? ''
+						: "\\" . \join("\\", \array_values(\array_slice($tmp, 1)))
+				);
+
+				break;
+			}
+		}
+
 		if (!class_exists($names)) {
 			throw AnnotationException::classNotExists(
 				__METHOD__,
