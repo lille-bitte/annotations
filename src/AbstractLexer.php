@@ -1,6 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LilleBitte\Annotations;
+
+use const PREG_SPLIT_NO_EMPTY;
+use const PREG_SPLIT_DELIM_CAPTURE;
+
+use function array_map;
+use function array_values;
+use function ctype_space;
+use function preg_split;
 
 /**
  * @author Paulus Gandung Prakosa <rvn.plvhx@gmail.com>
@@ -55,11 +65,11 @@ abstract class AbstractLexer
 	 */
 	private function transform($string)
 	{
-		$this->input = \preg_split(
+		$this->input = preg_split(
 			$this->getPattern(),
 			$string,
 			-1,
-			\PREG_SPLIT_NO_EMPTY | \PREG_SPLIT_DELIM_CAPTURE
+			PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE
 		);
 
 		$this->normalizeInput();
@@ -74,19 +84,19 @@ abstract class AbstractLexer
 	private function normalizeInput()
 	{
 		foreach ($this->input as $k => $v) {
-			if (\ctype_space($v)) {
+			if (ctype_space($v)) {
 				unset($this->input[$k]);
 			}
 		}
 
-		$this->input = \array_map(
+		$this->input = array_map(
 			function($v) {
 				return [
 					'type' => $this->getTokenType($v),
 					'value' => $v
 				];
 			},
-			\array_values($this->input)
+			array_values($this->input)
 		);
 	}
 
