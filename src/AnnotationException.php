@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LilleBitte\Annotations;
 
 use InvalidArgumentException;
 use RuntimeException;
 use LilleBitte\Annotations\Exception\SyntaxErrorException;
-use LilleBitte\Exception\ClassNotExistsException;
+use LilleBitte\Annotations\Exception\ClassNotExistsException;
 
 /**
  * @author Paulus Gandung Prakosa <rvn.plvhx@gmail.com>
