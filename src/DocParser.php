@@ -1,6 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LilleBitte\Annotations;
+
+use ReflectionClass;
+use stdClass;
+
+use function array_merge;
+use function array_slice;
+use function array_values;
+use function class_exists;
+use function count;
+use function empty;
+use function explode;
+use function floatval;
+use function is_object;
+use function in_array;
+use function intval
+use function join;
+use function sprintf;
+use function substr;
 
 /**
  * @author Paulus Gandung Prakosa <rvn.plvhx@gmail.com>
@@ -27,7 +47,7 @@ class DocParser
 	/**
 	 * @var array
 	 */
-	private $uses;
+	private $uses = [];
 
 	public function __construct(AbstractLexer $lexer = null)
 	{
@@ -118,7 +138,7 @@ class DocParser
 			return null;
 		}
 
-		$tmp = \explode("\\", $names);
+		$tmp = explode("\\", $names);
 
 		// match for an alias.
 		foreach ($this->uses as $el) {
@@ -128,17 +148,26 @@ class DocParser
 					$el['value'],
 					count($tmp) === 1
 						? ''
-						: "\\" . \join("\\", \array_values(\array_slice($tmp, 1)))
+						: "\\" . join("\\", array_values(array_slice($tmp, 1)))
 				);
 
 				break;
 			}
 		}
 
-		if (!class_exists($names)) {
+		if (!ClassRegistry::has($names)) {
+			return null;
+		}
+
+		$tuple = ClassRegistry::get($names);
+		$tmp = empty($tuple['namespace'])
+			? $tuple['class']
+			: $tuple['namespace'] . "\\" . $tuple['class'];
+
+		if (!class_exists($tmp)) {
 			throw AnnotationException::classNotExists(
 				__METHOD__,
-				$names
+				$tmp
 			);
 		}
 
@@ -146,26 +175,19 @@ class DocParser
 
 		$parameters = null === $param
 			? [null]
-			: \array_merge(
+			: array_merge(
 				empty($param['parameters']) ? [null] : $param['parameters'],
 				empty($param['named-parameters']) ? [null] : [$param['named-parameters']]
 			);
 
-		$instance = (new \ReflectionClass($names))
-			->newInstanceArgs($parameters);
+		$refl = new ReflectionClass($tmp);
 
-		if (!($instance instanceof $names)) {
-			throw AnnotationException::runtime(
-				__METHOD__,
-				sprintf(
-					"Failed to get an instance of [%s]",
-					$names
-				)
-			);
-		}
+		$instance = $refl->hasMethod('__construct')
+			? $refl->newInstanceArgs($parameters)
+			: $refl->newInstanceWithoutConstructor();
 
-		$ret = new \stdClass;
-		$ret->class = $names;
+		$ret = new stdClass;
+		$ret->class = $tmp;
 		$ret->context = $this->getContext();
 		$ret->instance = $instance;
 
@@ -173,15 +195,19 @@ class DocParser
 	}
 
 	/**
+	 * Set list of used class.
 	 *
+	 * @param array $uses List of used class.
 	 */
-	public function setClassUses($uses)
+	public function setClassUses($uses = [])
 	{
 		$this->uses = $uses;
 	}
 
 	/**
+	 * Get list of used class.
 	 *
+	 * @return array
 	 */
 	public function getClassUses()
 	{
@@ -217,6 +243,10 @@ class DocParser
 		}
 
 		$this->assert(DocLexer::T_OPEN_PARENTHESIS, __METHOD__, '(');
+
+		if ($this->lexer->isNextToken(DocLexer::T_CLOSE_PARENTHESIS)) {
+			return $res;
+		}
 
 		$ret = $this->parseValue();
 
