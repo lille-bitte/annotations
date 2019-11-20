@@ -1,6 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LilleBitte\Annotations;
+
+use function array_values;
+use function is_array;
+use function token_get_all;
 
 /**
  * @author Paulus Gandung Prakosa <rvn.plvhx@gmail.com>
@@ -36,7 +42,7 @@ class InternalTokenizer implements TokenizerInterface
 	 */
 	private function parseToken($contents)
 	{
-		$this->token = \token_get_all($contents);
+		$this->token = token_get_all($contents);
 
 		foreach ($this->token as $key => $value) {
 			if (!is_array($value) || $value[0] === \T_WHITESPACE) {
