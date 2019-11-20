@@ -1,6 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LilleBitte\Annotations;
+
+use const T_LNUMBER;
+use const T_DNUMBER;
+use const T_CONSTANT_ENCAPSED_STRING;
+
+use function strlen;
 
 /**
  * @author Paulus Gandung Prakosa <rvn.plvhx@gmail.com>
@@ -100,13 +108,14 @@ class DocLexer extends AbstractLexer
 			? $this->getTokenType()
 			: $this->getTokenType($token);
 
-		return null !== $type
-			? $this->serializeType($type)
-			: null;
+		return $this->serializeType($type);
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * Convert given token type to it's name.
+	 *
+	 * @param integer $type Token type.
+	 * @return null|string
 	 */
 	public function serializeType($type)
 	{
