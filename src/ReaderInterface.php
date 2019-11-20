@@ -1,6 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LilleBitte\Annotations;
+
+use ReflectionClass;
+use ReflectionMethod;
+use ReflectionProperty;
 
 /**
  * @author Paulus Gandung Prakosa <rvn.plvhx@gmail.com>
@@ -14,7 +20,7 @@ interface ReaderInterface
 	 *                                should be read.
 	 * @return array
 	 */
-	public function getClassAnnotations(\ReflectionClass $class): array;
+	public function getClassAnnotations(ReflectionClass $class): array;
 
 	/**
 	 * Get a class annotation.
@@ -24,7 +30,7 @@ interface ReaderInterface
 	 * @param string           $name  Name of the annotation.
 	 * @return object|null
 	 */
-	public function getClassAnnotation(\ReflectionClass $class, $name);
+	public function getClassAnnotation(ReflectionClass $class, $name);
 
 	/**
 	 * Get method annotations.
@@ -33,7 +39,7 @@ interface ReaderInterface
 	 *                                  should be read.
 	 * @return array
 	 */
-	public function getMethodAnnotations(\ReflectionMethod $method): array;
+	public function getMethodAnnotations(ReflectionMethod $method): array;
 
 	/**
 	 * Get a method annotation.
@@ -43,7 +49,7 @@ interface ReaderInterface
 	 * @param string            $name   Name of the annotation.
 	 * @return object|null
 	 */
-	public function getMethodAnnotation(\ReflectionMethod $method, $name);
+	public function getMethodAnnotation(ReflectionMethod $method, $name);
 
 	/**
 	 * Get property annotations.
@@ -52,7 +58,7 @@ interface ReaderInterface
 	 *                                      should be read.
 	 * @return array
 	 */
-	public function getPropertyAnnotations(\ReflectionProperty $property): array;
+	public function getPropertyAnnotations(ReflectionProperty $property): array;
 
 	/**
 	 * Get a property annotation.
@@ -62,5 +68,5 @@ interface ReaderInterface
 	 * @param string              $name     Name of the annotation.
 	 * @return object|null
 	 */
-	public function getPropertyAnnotation(\ReflectionProperty $property, $name);	
+	public function getPropertyAnnotation(ReflectionProperty $property, $name);	
 }
