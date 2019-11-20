@@ -1,6 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LilleBitte\Annotations;
+
+use ReflectionClass;
+use ReflectionMethod;
+use ReflectionProperty;
+
+use function sprintf;
 
 /**
  * @author Paulus Gandung Prakosa <rvn.plvhx@gmail.com>
@@ -16,13 +24,13 @@ class AnnotationReader implements ReaderInterface
 	{
 		$this->parser = null === $parser
 			? new DocParser
-			: null;
+			: $parser;
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getClassAnnotations(\ReflectionClass $class): array
+	public function getClassAnnotations(ReflectionClass $class): array
 	{
 		$this->parser->setClassUses(
 			\LilleBitte\Annotations\getClassUses($class->getFileName())
@@ -37,7 +45,7 @@ class AnnotationReader implements ReaderInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getClassAnnotation(\ReflectionClass $class, $name)
+	public function getClassAnnotation(ReflectionClass $class, $name)
 	{
 		$annotations = $this->getClassAnnotations($class);
 		$context = sprintf(
@@ -57,7 +65,7 @@ class AnnotationReader implements ReaderInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getMethodAnnotations(\ReflectionMethod $method): array
+	public function getMethodAnnotations(ReflectionMethod $method): array
 	{
 		$class = $method->getDeclaringClass();
 		$context = sprintf(
@@ -79,7 +87,7 @@ class AnnotationReader implements ReaderInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getMethodAnnotation(\ReflectionMethod $method, $name)
+	public function getMethodAnnotation(ReflectionMethod $method, $name)
 	{
 		$annotations = $this->getMethodAnnotations($method);
 		$class = $method->getDeclaringClass();
@@ -101,7 +109,7 @@ class AnnotationReader implements ReaderInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getPropertyAnnotations(\ReflectionProperty $property): array
+	public function getPropertyAnnotations(ReflectionProperty $property): array
 	{
 		$class = $property->getDeclaringClass();
 		$context = sprintf(
@@ -123,7 +131,7 @@ class AnnotationReader implements ReaderInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getPropertyAnnotation(\ReflectionProperty $property, $name)
+	public function getPropertyAnnotation(ReflectionProperty $property, $name)
 	{
 		$annotations = $this->getPropertyAnnotations($property);
 		$class = $property->getDeclaringClass();
