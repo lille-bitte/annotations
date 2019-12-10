@@ -12,12 +12,11 @@ use function array_slice;
 use function array_values;
 use function class_exists;
 use function count;
-use function empty;
 use function explode;
 use function floatval;
 use function is_object;
 use function in_array;
-use function intval
+use function intval;
 use function join;
 use function sprintf;
 use function substr;
