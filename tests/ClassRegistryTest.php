@@ -12,14 +12,14 @@ use PHPUnit\Framework\TestCase;
  */
 class ClassRegistryTest extends TestCase
 {
-	public function testCannotGetClass()
-	{
-		$this->assertNull(ClassRegistry::get("Foo\\Bar\\Baz"));
-	}
+    public function testCannotGetClass()
+    {
+        $this->assertNull(ClassRegistry::get("Foo\\Bar\\Baz"));
+    }
 
-	public function testCanGetEmptyNamespace()
-	{
-		ClassRegistry::register(\SplQueue::class);
-		$this->assertTrue(true);
-	}
+    public function testCanGetEmptyNamespace()
+    {
+        ClassRegistry::register(\SplQueue::class);
+        $this->assertTrue(true);
+    }
 }

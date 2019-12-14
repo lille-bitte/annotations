@@ -16,35 +16,35 @@ namespace LilleBitte\Annotations;
  */
 function readFile($file): string
 {
-	if (!is_file($file)) {
-		throw AnnotationException::invalidArgument(
-			__FUNCTION__,
-			sprintf(
-				"file '%s' not exists.",
-				$file
-			)
-		);
-	}
+    if (!is_file($file)) {
+        throw AnnotationException::invalidArgument(
+            __FUNCTION__,
+            sprintf(
+                "file '%s' not exists.",
+                $file
+            )
+        );
+    }
 
-	$fobj = new \SplFileObject($file);
+    $fobj = new \SplFileObject($file);
 
-	if (!($fobj instanceof \SplFileObject)) {
-		throw AnnotationException::invalidArgument(
-			__FUNCTION__,
-			sprintf(
-				"file '%s' has opened in wrong mode, or invalid permission.",
-				$file
-			)
-		);
-	}
+    if (!($fobj instanceof \SplFileObject)) {
+        throw AnnotationException::invalidArgument(
+            __FUNCTION__,
+            sprintf(
+                "file '%s' has opened in write-only mode, or invalid permission.",
+                $file
+            )
+        );
+    }
 
-	$buf = '';
+    $buf = '';
 
-	while (!$fobj->eof()) {
-		$buf .= $fobj->fgets();
-	}
+    while (!$fobj->eof()) {
+        $buf .= $fobj->fgets();
+    }
 
-	return $buf;
+    return $buf;
 }
 
 /**
@@ -56,36 +56,36 @@ function readFile($file): string
  */
 function getNamespaces($file): array
 {
-	$tokenizer = new InternalTokenizer(
-		readFile($file)
-	);
+    $tokenizer = new InternalTokenizer(
+        readFile($file)
+    );
 
-	$res = [];
+    $res = [];
 
-	$callback = function() use ($tokenizer) {
-		$buf = '';
+    $callback = function () use ($tokenizer) {
+        $buf = '';
 
-		while ((false !== $tokenizer->next()) &&
-			   ($tokenizer->getTokenType() === T_STRING || $tokenizer->getTokenType() === T_NS_SEPARATOR)) {
-			$buf .= $tokenizer->getTokenValue();
-		}
+        while ((false !== $tokenizer->next()) &&
+               ($tokenizer->getTokenType() === T_STRING || $tokenizer->getTokenType() === T_NS_SEPARATOR)) {
+            $buf .= $tokenizer->getTokenValue();
+        }
 
-		return $buf;
-	};
+        return $buf;
+    };
 
-	// move to next token
-	$tokenizer->next();
+    // move to next token
+    $tokenizer->next();
 
-	while (null !== $tokenizer->getToken()) {
-		if ($tokenizer->getTokenType() === T_NAMESPACE) {
-			$res[] = $callback();
-			continue;
-		}
+    while (null !== $tokenizer->getToken()) {
+        if ($tokenizer->getTokenType() === T_NAMESPACE) {
+            $res[] = $callback();
+            continue;
+        }
 
-		$tokenizer->next();
-	}
+        $tokenizer->next();
+    }
 
-	return $res;
+    return $res;
 }
 
 /**
@@ -97,49 +97,49 @@ function getNamespaces($file): array
  */
 function getClassUses($file): array
 {
-	$tokenizer = new InternalTokenizer(
-		readFile($file)
-	);
+    $tokenizer = new InternalTokenizer(
+        readFile($file)
+    );
 
-	$res = [];
+    $res = [];
 
-	$callback = function() use ($tokenizer) {
-		$ret = ['value' => '', 'alias' => null];
+    $callback = function () use ($tokenizer) {
+        $ret = ['value' => '', 'alias' => null];
 
-		while ((false !== $tokenizer->next()) &&
-	           ($tokenizer->getTokenType() === T_STRING || $tokenizer->getTokenType() === T_NS_SEPARATOR ||
-	            $tokenizer->getTokenType() === T_AS)) {
-			if ($tokenizer->getTokenType() === T_AS) {
-				$tokenizer->next();
+        while ((false !== $tokenizer->next()) &&
+               ($tokenizer->getTokenType() === T_STRING || $tokenizer->getTokenType() === T_NS_SEPARATOR ||
+                $tokenizer->getTokenType() === T_AS)) {
+            if ($tokenizer->getTokenType() === T_AS) {
+                $tokenizer->next();
 
-				if ($tokenizer->getTokenType() !== T_STRING) {
-					throw AnnotationException::syntaxError(
-						__METHOD__,
-						"string"
-					);
-				}
+                if ($tokenizer->getTokenType() !== T_STRING) {
+                    throw AnnotationException::syntaxError(
+                        __METHOD__,
+                        "string"
+                    );
+                }
 
-				$ret['alias'] = $tokenizer->getTokenValue();
-				continue;
-			}
+                $ret['alias'] = $tokenizer->getTokenValue();
+                continue;
+            }
 
-			$ret['value'] .= $tokenizer->getTokenValue();
-		}
+            $ret['value'] .= $tokenizer->getTokenValue();
+        }
 
-		return $ret;
-	};
+        return $ret;
+    };
 
-	// move to next token
-	$tokenizer->next();
+    // move to next token
+    $tokenizer->next();
 
-	while (null !== $tokenizer->getToken()) {
-		if ($tokenizer->getTokenType() === T_USE) {
-			$res[] = $callback();
-			continue;
-		}
+    while (null !== $tokenizer->getToken()) {
+        if ($tokenizer->getTokenType() === T_USE) {
+            $res[] = $callback();
+            continue;
+        }
 
-		$tokenizer->next();
-	}
+        $tokenizer->next();
+    }
 
-	return $res;
+    return $res;
 }

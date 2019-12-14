@@ -7,5 +7,7 @@ namespace LilleBitte\Annotations\Tests\Fixtures;
  */
 class Foo
 {
-	public function __construct() {}
+    public function __construct()
+    {
+    }
 }

@@ -11,8 +11,8 @@ use LilleBitte\Annotations\Tests\Fixtures\Foo as FooFixtures;
  */
 class Bar
 {
-	/**
-	 * @FooFixtures
-	 */
-	private $foo;
+    /**
+     * @FooFixtures
+     */
+    private $foo;
 }

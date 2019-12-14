@@ -1,14 +1,14 @@
 <?php
 
 return [
-	<<<FOO
+    <<<FOO
 /**
  * @Foo\Bar\Baz
  */
 FOO,
-	'"this is a shit."',
-	"31337",
-	"3.14159",
-	"true",
-	"false"
+    '"this is a shit."',
+    "31337",
+    "3.14159",
+    "true",
+    "false"
 ];
