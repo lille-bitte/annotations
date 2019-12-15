@@ -24,7 +24,7 @@ use function substr;
 /**
  * @author Paulus Gandung Prakosa <rvn.plvhx@gmail.com>
  */
-class DocParser
+final class DocParser
 {
     /**
      * @var DocLexer
