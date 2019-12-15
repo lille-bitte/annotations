@@ -18,6 +18,8 @@ use function is_object;
 use function in_array;
 use function intval;
 use function join;
+use function ltrim;
+use function rtrim;
 use function sprintf;
 use function substr;
 
