@@ -7,6 +7,7 @@ namespace LilleBitte\Annotations;
 use function array_slice;
 use function count;
 use function explode;
+use function join;
 
 /**
  * @author Paulus Gandung Prakosa <rvn.plvhx@gmail.com>

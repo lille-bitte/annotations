@@ -8,7 +8,9 @@ use const T_LNUMBER;
 use const T_DNUMBER;
 use const T_CONSTANT_ENCAPSED_STRING;
 
+use function is_numeric;
 use function strlen;
+use function strpos;
 
 /**
  * @author Paulus Gandung Prakosa <rvn.plvhx@gmail.com>
