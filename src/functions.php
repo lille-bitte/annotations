@@ -5,10 +5,6 @@ declare(strict_types=1);
 namespace LilleBitte\Annotations;
 
 /**
- * @author Paulus Gandung Prakosa <rvn.plvhx@gmail.com>
- */
-
-/**
  * Read contents of a file.
  *
  * @param string $file File name.
