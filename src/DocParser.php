@@ -171,7 +171,7 @@ final class DocParser
             }
         }
 
-        if (!$matched) {
+        /*if (!$matched) {
             throw new \RuntimeException(
                 sprintf(
                     "Annotation @%s did not exist. Did you forget to import " .
@@ -179,7 +179,7 @@ final class DocParser
                     $tmp[0]
                 )
             );
-        }
+        }*/
 
         if (!ClassRegistry::has($names)) {
             return null;
@@ -420,7 +420,6 @@ final class DocParser
     private function parseArray()
     {
         $res = [];
-
         $this->assert(DocLexer::T_OPEN_CURLY_BRACES, __METHOD__, '{');
 
         // if next token adjacent to open curly
@@ -430,7 +429,15 @@ final class DocParser
             return $res;
         }
 
-        $res[] = $this->parseLiteral();
+        if ($this->lexer->peekType() === DocLexer::T_COLON) {
+            $this->lexer->next();
+            $key = $this->lexer->getTokenValue();
+            $this->assert(DocLexer::T_COLON, __METHOD__, ':');
+        } else {
+            $key = count($res);
+        }
+
+        $res[$key] = $this->parseLiteral();
 
         while ($this->lexer->isNextToken(DocLexer::T_COMMA)) {
             $this->assert(DocLexer::T_COMMA, __METHOD__, ',');
@@ -439,7 +446,15 @@ final class DocParser
                 break;
             }
 
-            $res[] = $this->parseLiteral();
+            if ($this->lexer->peekType() === DocLexer::T_COLON) {
+                $this->lexer->next();
+                $key = $this->lexer->getTokenValue();
+                $this->assert(DocLexer::T_COLON, __METHOD__, ':');
+            } else {
+                $key = count($res);
+            }
+
+            $res[$key] = $this->parseLiteral();
         }
 
         $this->assert(DocLexer::T_CLOSE_CURLY_BRACES, __METHOD__, '}');
