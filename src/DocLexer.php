@@ -32,6 +32,7 @@ class DocLexer extends AbstractLexer
     const T_COMMA              = 108;
     const T_TRUE               = 109;
     const T_FALSE              = 110;
+    const T_COLON              = 111;
 
     /**
      * @var array
@@ -45,7 +46,8 @@ class DocLexer extends AbstractLexer
         '{' => self::T_OPEN_CURLY_BRACES,
         '}' => self::T_CLOSE_CURLY_BRACES,
         '=' => self::T_ASSIGN,
-        ',' => self::T_COMMA
+        ',' => self::T_COMMA,
+        ':' => self::T_COLON
     ];
 
     /**
@@ -65,7 +67,8 @@ class DocLexer extends AbstractLexer
         self::T_INTEGER            => "integer",
         self::T_FLOAT              => "float",
         self::T_TRUE               => "boolean (true)",
-        self::T_FALSE              => "boolean (false)"
+        self::T_FALSE              => "boolean (false)",
+        self::T_COLON              => "colon"
     ];
 
     /**
