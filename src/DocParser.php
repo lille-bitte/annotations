@@ -101,6 +101,7 @@ final class DocParser
      * Populate parsing results.
      *
      * @return array
+     * @throws Exception\ClassNotExistsException
      */
     private function aggregate(): array
     {
