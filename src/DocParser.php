@@ -261,6 +261,7 @@ final class DocParser
      * ABNF: (Parenthesis (class instantiation) ::= '(' (*Literal) ')')
      *
      * @return array|null
+     * @throws Exception\SyntaxErrorException
      */
     private function parseParenthesis()
     {
