@@ -63,6 +63,7 @@ final class DocParser
      * @param string $input Docblock comment.
      * @param string $context Parsing context.
      * @return array
+     * @throws Exception\ClassNotExistsException
      */
     public function parse($input, $context): array
     {
