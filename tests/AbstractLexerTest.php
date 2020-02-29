@@ -15,14 +15,23 @@ use function file_get_contents;
  */
 class AbstractLexerTest extends TestCase
 {
+    /**
+     * @var array
+     */
     private $docComments;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp()
     {
         $this->docComments = require __DIR__ . DIRECTORY_SEPARATOR . 'fixtures/doc_comment.php';
     }
 
-    public function tearDown()
+    /**
+     * {@inheritdoc}
+     */
+    protected function tearDown()
     {
         $this->docComments = null;
     }
