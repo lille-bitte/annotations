@@ -14,6 +14,21 @@ use ReflectionProperty;
 interface ReaderInterface
 {
     /**
+     * Set ignored annotation names.
+     *
+     * @param array $names Ignored annotation names.
+     * @return void
+     */
+    public function setIgnoredAnnotationNames(array $names);
+
+    /**
+     * Get ignored annotation names.
+     *
+     * @return array
+     */
+    public function getIgnoredAnnotationNames();
+
+    /**
      * Get class annotations.
      *
      * @param \ReflectionClass $class From which the class annotations
