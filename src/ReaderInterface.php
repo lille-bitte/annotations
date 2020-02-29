@@ -29,6 +29,13 @@ interface ReaderInterface
     public function getIgnoredAnnotationNames();
 
     /**
+     * Get global ignored annotation names.
+     *
+     * @return array
+     */
+    public function getGlobalIgnoredAnnotationNames();
+
+    /**
      * Get class annotations.
      *
      * @param \ReflectionClass $class From which the class annotations
