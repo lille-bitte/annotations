@@ -133,7 +133,7 @@ class AnnotationReader implements ReaderInterface
         );
 
         $this->parser->setClassUses(getClassUses($class->getFileName()));
-        $this->parser->setIgnoredAnnotationNames($this->normalizeGlobalIgnoredAnnotationNames());
+        $this->parser->setIgnoredAnnotationNames($this->mergeBothIgnoredAnnotationNames());
 
         return $this->parser->parse(
             $method->getDocComment(),
@@ -176,7 +176,7 @@ class AnnotationReader implements ReaderInterface
         );
 
         $this->parser->setClassUses(getClassUses($class->getFileName()));
-        $this->parser->setIgnoredAnnotationNames($this->normalizeGlobalIgnoredAnnotationNames());
+        $this->parser->setIgnoredAnnotationNames($this->mergeBothIgnoredAnnotationNames());
 
         return $this->parser->parse(
             $property->getDocComment(),
