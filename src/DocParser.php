@@ -327,6 +327,7 @@ final class DocParser
      * ABNF: (Assignment ::= string '=' Literal)
      *
      * @return object
+     * @throws Exception\SyntaxErrorException
      */
     private function parseAssignment()
     {
