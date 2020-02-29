@@ -15,6 +15,8 @@ use function sprintf;
  */
 class AnnotationReader implements ReaderInterface
 {
+    use ReaderTrait;
+
     /**
      * @var DocParser
      */
