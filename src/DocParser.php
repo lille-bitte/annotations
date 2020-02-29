@@ -479,6 +479,7 @@ final class DocParser
      * @param string $caller Caller name.
      * @param string $expected Expected result.
      * @return void
+     * @throws Exception\SyntaxErrorException
      */
     private function assert($type, $caller, $expected)
     {
