@@ -67,6 +67,10 @@ class AnnotationReader implements ReaderInterface
         'use',
     ];
 
+    /**
+     * AnnotationReader constructor.
+     * @param DocParser|null $parser
+     */
     public function __construct(DocParser $parser = null)
     {
         $this->parser = null === $parser
