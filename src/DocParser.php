@@ -130,6 +130,9 @@ final class DocParser
      * Group each token to one entity.
      *
      * @return object
+     * @throws Exception\ClassNotExistsException
+     * @throws Exception\SyntaxErrorException
+     * @throws \ReflectionException
      */
     private function process()
     {
