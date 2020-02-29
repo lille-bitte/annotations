@@ -176,7 +176,7 @@ final class DocParser
             }
         }
 
-        /*if (!$matched) {
+        if (!$matched) {
             throw new \RuntimeException(
                 sprintf(
                     "Annotation @%s did not exist. Did you forget to import " .
@@ -184,7 +184,7 @@ final class DocParser
                     $tmp[0]
                 )
             );
-        }*/
+        }
 
         if (!ClassRegistry::has($names)) {
             return null;
