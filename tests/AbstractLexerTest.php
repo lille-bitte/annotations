@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LilleBitte\Annotations\Tests;
 
 use LilleBitte\Annotations\AbstractLexer;
