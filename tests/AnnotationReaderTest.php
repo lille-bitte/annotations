@@ -61,6 +61,7 @@ class AnnotationReaderTest extends TestCase
         ClassRegistry::register(Foo::class);
 
         $reader = new AnnotationReader();
+        $reader->setIgnoredAnnotationNames(['gmail']);
         $foo = $reader->getClassAnnotations(new ReflectionClass($this));
 
         ClassRegistry::reset();
@@ -73,6 +74,7 @@ class AnnotationReaderTest extends TestCase
         ClassRegistry::register(Foo::class);
 
         $reader = new AnnotationReader();
+        $reader->setIgnoredAnnotationNames(['gmail']);
         $foo = $reader->getClassAnnotation(
             new ReflectionClass($this),
             Foo::class
@@ -88,6 +90,7 @@ class AnnotationReaderTest extends TestCase
         ClassRegistry::register(Foo::class);
 
         $reader = new AnnotationReader();
+        $reader->setIgnoredAnnotationNames(['gmail']);
         $foo = $reader->getClassAnnotation(
             new ReflectionClass($this),
             Bar::class
@@ -103,6 +106,7 @@ class AnnotationReaderTest extends TestCase
         ClassRegistry::register(Foo::class);
 
         $reader = new AnnotationReader();
+        $reader->setIgnoredAnnotationNames(['gmail']);
         $refl = (new ReflectionClass($this))->getMethod('dummyMethodForTesting');
         $foo = $reader->getMethodAnnotations($refl);
 
@@ -116,6 +120,7 @@ class AnnotationReaderTest extends TestCase
         ClassRegistry::register(Foo::class);
 
         $reader = new AnnotationReader();
+        $reader->setIgnoredAnnotationNames(['gmail']);
         $refl = (new ReflectionClass($this))->getMethod('dummyMethodForTesting');
         $foo = $reader->getMethodAnnotation($refl, Foo::class);
 
@@ -129,6 +134,7 @@ class AnnotationReaderTest extends TestCase
         ClassRegistry::register(Foo::class);
 
         $reader = new AnnotationReader();
+        $reader->setIgnoredAnnotationNames(['gmail']);
         $refl = (new ReflectionClass($this))->getMethod('dummyMethodForTesting');
         $foo = $reader->getMethodAnnotation($refl, Bar::class);
 
@@ -142,6 +148,7 @@ class AnnotationReaderTest extends TestCase
         ClassRegistry::register(Foo::class);
 
         $reader = new AnnotationReader();
+        $reader->setIgnoredAnnotationNames(['gmail']);
         $refl = (new ReflectionClass($this))->getProperty('foo');
         $foo = $reader->getPropertyAnnotations($refl);
 
@@ -155,6 +162,7 @@ class AnnotationReaderTest extends TestCase
         ClassRegistry::register(Foo::class);
 
         $reader = new AnnotationReader();
+        $reader->setIgnoredAnnotationNames(['gmail']);
         $refl = (new ReflectionClass($this))->getProperty('foo');
         $foo = $reader->getPropertyAnnotation($refl, Foo::class);
 
@@ -168,6 +176,7 @@ class AnnotationReaderTest extends TestCase
         ClassRegistry::register(Foo::class);
 
         $reader = new AnnotationReader();
+        $reader->setIgnoredAnnotationNames(['gmail']);
         $refl = (new ReflectionClass($this))->getProperty('foo');
         $foo = $reader->getPropertyAnnotation($refl, Bar::class);
 
