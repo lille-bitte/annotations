@@ -498,7 +498,7 @@ final class DocParser
      * Check if given annotation value is
      * on ignored list.
      *
-     * @param string $buf Annotation value.
+     * @param string $name Annotation name.
      * @return boolean
      */
     private function isIgnoredAnnotation(string $name)
