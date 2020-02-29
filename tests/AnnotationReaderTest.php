@@ -30,9 +30,18 @@ class AnnotationReaderTest extends TestCase
     {
     }
 
-    public function tearDown()
+    /**
+     * {@inheritdoc}
+     */
+    protected function setUp()
     {
-        $this->docComments = null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function tearDown()
+    {
     }
 
     public function testCanGetInstanceWithPrebuiltParser()
