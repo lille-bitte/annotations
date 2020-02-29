@@ -77,9 +77,8 @@ class AnnotationReader implements ReaderInterface
      */
     public function getClassAnnotations(ReflectionClass $class): array
     {
-        $this->parser->setClassUses(
-            \LilleBitte\Annotations\getClassUses($class->getFileName())
-        );
+        $this->parser->setClassUses(getClassUses($class->getFileName()));
+        $this->parser->setIgnoredAnnotationNames($this->normalizeGlobalIgnoredAnnotationNames());
 
         return $this->parser->parse(
             $class->getDocComment(),
@@ -119,9 +118,8 @@ class AnnotationReader implements ReaderInterface
             $method->getName()
         );
 
-        $this->parser->setClassUses(
-            \LilleBitte\Annotations\getClassUses($class->getFileName())
-        );
+        $this->parser->setClassUses(getClassUses($class->getFileName()));
+        $this->parser->setIgnoredAnnotationNames($this->normalizeGlobalIgnoredAnnotationNames());
 
         return $this->parser->parse(
             $method->getDocComment(),
@@ -163,9 +161,8 @@ class AnnotationReader implements ReaderInterface
             $property->getName()
         );
 
-        $this->parser->setClassUses(
-            \LilleBitte\Annotations\getClassUses($class->getFileName())
-        );
+        $this->parser->setClassUses(getClassUses($class->getFileName()));
+        $this->parser->setIgnoredAnnotationNames($this->normalizeGlobalIgnoredAnnotationNames());
 
         return $this->parser->parse(
             $property->getDocComment(),
