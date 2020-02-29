@@ -52,9 +52,7 @@ class AnnotationReaderTest extends TestCase
 
     public function testCanGetInstanceWithNonNullParser()
     {
-        $parser = new DocParser();
-        $this->assertInstanceOf(DocParser::class, $parser);
-        $reader = new AnnotationReader($parser);
+        $reader = new AnnotationReader();
         $this->assertInstanceOf(ReaderInterface::class, $reader);
     }
 
