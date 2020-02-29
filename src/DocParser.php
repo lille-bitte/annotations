@@ -306,6 +306,7 @@ final class DocParser
      * ABNF: (Value ::= Literal / Assignment)
      *
      * @return mixed
+     * @throws Exception\SyntaxErrorException
      */
     private function parseValue()
     {
