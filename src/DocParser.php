@@ -425,6 +425,7 @@ final class DocParser
      * ABNF: (Array ::= '{' *(Literal [',']) '}')
      *
      * @return array
+     * @throws Exception\SyntaxErrorException
      */
     private function parseArray()
     {
