@@ -48,6 +48,10 @@ final class DocParser
      */
     private $uses = [];
 
+    /**
+     * DocParser constructor.
+     * @param AbstractLexer|null $lexer
+     */
     public function __construct(AbstractLexer $lexer = null)
     {
         $this->lexer = (null === $lexer)
