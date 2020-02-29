@@ -350,6 +350,7 @@ final class DocParser
      * ABNF: (Literal ::= string / integer / boolean / Array)
      *
      * @return mixed
+     * @throws Exception\SyntaxErrorException
      */
     private function parseLiteral()
     {
