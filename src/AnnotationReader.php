@@ -20,6 +20,51 @@ class AnnotationReader implements ReaderInterface
      */
     private $parser;
 
+    /**
+     * @var array
+     */
+    private $globalIgnoredAnnotationNames = [
+        'fix', 'fixme', 'override',
+        // PHPDocumentor 1
+        'abstract', 'access', 'code',
+        'deprec', 'endcode', 'exception',
+        'final', 'ingroup', 'inheritdoc',
+        'inheritDoc', 'magic', 'name',
+        'toc', 'tutorial', 'private',
+        'static', 'staticvar', 'staticVar',
+        'throw',
+        // PHPDocumentor 2
+        'api', 'author', 'category',
+        'copyright', 'deprecated', 'example',
+        'filesource', 'global', 'ignore',
+        'internal', 'license', 'link',
+        'method', 'package', 'param',
+        'property', 'property-read', 'property-write',
+        'return', 'see', 'since',
+        'source', 'subpackage', 'throws',
+        'todo', 'TODO', 'usedby',
+        'uses', 'var', 'version',
+        // PHPUnit
+        'codeCoverageIgnore', 'codeCoverageIgnoreStart', 'codeCoverageIgnoreEnd',
+        // PHPCheckStyle
+        'SuppressWarnings',
+        // PHPStorm
+        'noinspection',
+        // PEAR
+        'package_version',
+        // PlantUML
+        'startuml', 'enduml',
+        // Symfony 3.3 Cache Adapter
+        'experimental',
+        // Slevomat Coding Standard
+        'phpcsSuppress',
+        // PHP CodeSniffer
+        'codingStandardsIgnoreStart', 'codingStandardsIgnoreEnd',
+        // PHPStan
+        'template', 'implements', 'extends',
+        'use',
+    ];
+
     public function __construct(DocParser $parser = null)
     {
         $this->parser = null === $parser
