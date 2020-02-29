@@ -64,6 +64,8 @@ final class DocParser
      * @param string $context Parsing context.
      * @return array
      * @throws Exception\ClassNotExistsException
+     * @throws Exception\SyntaxErrorException
+     * @throws \ReflectionException
      */
     public function parse($input, $context): array
     {
