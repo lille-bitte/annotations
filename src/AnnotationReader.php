@@ -81,10 +81,18 @@ class AnnotationReader implements ReaderInterface
     /**
      * {@inheritdoc}
      */
+    public function getGlobalIgnoredAnnotationNames()
+    {
+        return $this->globalIgnoredAnnotationNames;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getClassAnnotations(ReflectionClass $class): array
     {
         $this->parser->setClassUses(getClassUses($class->getFileName()));
-        $this->parser->setIgnoredAnnotationNames($this->normalizeGlobalIgnoredAnnotationNames());
+        $this->parser->setIgnoredAnnotationNames($this->mergeBothIgnoredAnnotationNames());
 
         return $this->parser->parse(
             $class->getDocComment(),
