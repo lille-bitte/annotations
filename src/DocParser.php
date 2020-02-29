@@ -56,6 +56,27 @@ final class DocParser
     }
 
     /**
+     * Set ignored annotation names.
+     *
+     * @param array $names Ignored annotation names.
+     * @return void
+     */
+    public function setIgnoredAnnotationNames($names)
+    {
+        $this->ignoredAnnotationNames = $names;
+    }
+
+    /**
+     * Get ignored annotation names.
+     *
+     * @return array
+     */
+    public function getIgnoredAnnotationNames()
+    {
+        return $this->ignoredAnnotationNames;
+    }
+
+    /**
      * Parse given docblock.
      *
      * @param string $input Docblock comment.
