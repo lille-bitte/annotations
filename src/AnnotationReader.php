@@ -207,13 +207,27 @@ class AnnotationReader implements ReaderInterface
     }
 
     /**
-     * Normalize global ignored annotation names by setting
+     * Normalize ignored annotation names by setting
      * all values to key, and boolean (true) as value
+     *
+     * @param array $names Ignored annotation names.
+     * @return array
+     */
+    private function normalizeIgnoredAnnotationNames(array $names)
+    {
+        return array_fill_keys($names, true);
+    }
+
+    /**
+     * Merge global and common ignored annotation names.
      *
      * @return array
      */
-    private function normalizeGlobalIgnoredAnnotationNames()
+    private function mergeBothIgnoredAnnotationNames()
     {
-        return array_fill_keys($this->globalIgnoredAnnotationNames, true);
+        return array_merge(
+            $this->normalizeIgnoredAnnotationNames($this->getGlobalIgnoredAnnotationNames()),
+            $this->normalizeIgnoredAnnotationNames($this->getIgnoredAnnotationNames())
+        );
     }
 }
