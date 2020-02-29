@@ -526,6 +526,6 @@ final class DocParser
      */
     private function isIgnoredAnnotation(string $name)
     {
-        return in_array($name, $this->ignoredAnnotationNames, true);
+        return isset($this->ignoredAnnotationNames[$name]);
     }
 }
