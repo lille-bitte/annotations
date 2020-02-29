@@ -191,4 +191,15 @@ class AnnotationReader implements ReaderInterface
 
         return null;
     }
+
+    /**
+     * Normalize global ignored annotation names by setting
+     * all values to key, and boolean (true) as value
+     *
+     * @return array
+     */
+    private function normalizeGlobalIgnoredAnnotationNames()
+    {
+        return array_fill_keys($this->globalIgnoredAnnotationNames, true);
+    }
 }
