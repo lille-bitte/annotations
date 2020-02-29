@@ -41,9 +41,7 @@ final class DocParser
     /**
      * @var array
      */
-    private $ignoredAnnotationNames = [
-        'var', 'author', 'param', 'return'
-    ];
+    private $ignoredAnnotationNames = [];
 
     /**
      * @var array
