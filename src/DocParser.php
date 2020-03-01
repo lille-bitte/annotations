@@ -177,16 +177,9 @@ final class DocParser
 
         // match for an alias.
         foreach ($this->uses as $el) {
-            if ($tmp[0] === $el['alias']) {
-                $names = sprintf(
-                    "%s%s",
-                    $el['value'],
-                    count($tmp) === 1
-                        ? ''
-                        : "\\" . join("\\", array_values(array_slice($tmp, 1)))
-                );
+            if ($tmp[count($tmp) - 1] === $el['alias']) {
+                $names = $el['value'];
                 $aliased = true;
-
                 break;
             }
         }
