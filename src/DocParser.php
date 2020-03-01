@@ -189,19 +189,19 @@ final class DocParser
                 $splitted = explode("\\", $el['value']);
                 $className = $splitted[count($splitted) - 1];
 
-                if ($tmp[0] === $className) {
+                if ($tmp[count($tmp) - 1] === $className) {
                     $matched = true;
                     break;
                 }
             }
         }
 
-        if (!$matched) {
+        if (!$matched && !$aliased) {
             throw new \RuntimeException(
                 sprintf(
                     "Annotation @%s did not exist. Did you forget to import " .
                     "associated class or namespace alias?",
-                    $tmp[0]
+                    $tmp[count($tmp) - 1]
                 )
             );
         }
