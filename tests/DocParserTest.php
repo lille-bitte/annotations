@@ -2,6 +2,8 @@
 
 namespace LilleBitte\Annotations\Tests;
 
+use SplPriorityQueue;
+use Foo\Bar\Baz;
 use LilleBitte\Annotations\ClassRegistry;
 use LilleBitte\Annotations\DocLexer;
 use LilleBitte\Annotations\DocParser;
