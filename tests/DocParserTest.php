@@ -41,10 +41,13 @@ class DocParserTest extends TestCase
 
     public function testCanResolveClassWithoutNamespace()
     {
-        ClassRegistry::register(\SplPriorityQueue::class);
+        ClassRegistry::register(SplPriorityQueue::class);
 
         $annotation = "/**\n * @SplPriorityQueue\n */";
         $parser = new DocParser();
+        $parser->setClassUses(
+            \LilleBitte\Annotations\getClassUses(__FILE__)
+        );
         $list = $parser->parse($annotation, sprintf("class %s", get_class($this)));
 
         ClassRegistry::reset();
