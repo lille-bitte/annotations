@@ -65,8 +65,12 @@ class DocParserTest extends TestCase
         try {
             $annotation = "/**\n * @Foo\\Bar\\Baz\n */";
             $parser = new DocParser();
+            $parser->setClassUses(
+                \LilleBitte\Annotations\getClassUses(__FILE__)
+            );
+
             $list = $parser->parse($annotation, sprintf("class %s", get_class($this)));
-        } catch (\LilleBitte\Annotations\Exception\ClassNotExistsException $ce) {
+        } catch (ClassNotExistsException $ce) {
             ClassRegistry::reset();
             throw $ce;
         }
