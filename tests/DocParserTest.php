@@ -56,7 +56,7 @@ class DocParserTest extends TestCase
     }
 
     /**
-     * @expectedException \LilleBitte\Annotations\Exception\ClassNotExistsException
+     * @expectedException LilleBitte\Annotations\Exception\ClassNotExistsException
      */
     public function testCanThrowExceptionIfClassValueAnnotationNotExist()
     {
