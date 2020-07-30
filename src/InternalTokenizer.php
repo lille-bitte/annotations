@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace LilleBitte\Annotations;
 
+use const T_WHITESPACE;
+
 use function array_values;
 use function is_array;
 use function token_get_all;
@@ -42,15 +44,24 @@ class InternalTokenizer implements TokenizerInterface
      */
     private function parseToken($contents)
     {
-        $this->token = token_get_all($contents);
+        $this->token = $this->normalizeParsedToken(token_get_all($contents));
+    }
 
-        foreach ($this->token as $key => $value) {
-            if (!is_array($value) || $value[0] === \T_WHITESPACE) {
-                unset($this->token[$key]);
+    /**
+     * Normalize currently parsed token.
+     *
+     * @param array $tokens Currently parsed tokens.
+     * @return array
+     */
+    private function normalizeParsedToken($tokens)
+    {
+        foreach ($tokens as $key => $value) {
+            if (!is_array($value) || $value[0] === T_WHITESPACE) {
+                unset($tokens[$key]);
             }
         }
 
-        $this->token = array_values($this->token);
+        return array_values($tokens);
     }
 
     /**
@@ -60,8 +71,8 @@ class InternalTokenizer implements TokenizerInterface
      */
     private function reset()
     {
-        $this->token = null;
-        $this->current = null;
+        $this->token    = null;
+        $this->current  = null;
         $this->position = 0;
     }
 
@@ -95,9 +106,7 @@ class InternalTokenizer implements TokenizerInterface
             $token = $token[0];
         }
 
-        return null === $token
-            ? null
-            : $token;
+        return null === $token ? null : $token;
     }
 
     /**
@@ -106,9 +115,6 @@ class InternalTokenizer implements TokenizerInterface
     public function getTokenValue()
     {
         $token = $this->getToken();
-
-        return null === $token
-            ? null
-            : $token[1];
+        return null === $token ? null : $token[1];
     }
 }
