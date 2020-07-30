@@ -52,13 +52,9 @@ function readFile($file): string
  */
 function getNamespaces($file): array
 {
-    $tokenizer = new InternalTokenizer(
-        readFile($file)
-    );
-
-    $res = [];
-
-    $callback = function () use ($tokenizer) {
+    $tokenizer = new InternalTokenizer(readFile($file));
+    $res       = [];
+    $callback  = function () use ($tokenizer) {
         $buf = '';
 
         while ((false !== $tokenizer->next()) &&
@@ -93,14 +89,10 @@ function getNamespaces($file): array
  */
 function getClassUses($file): array
 {
-    $tokenizer = new InternalTokenizer(
-        readFile($file)
-    );
-
-    $res = [];
-
-    $callback = function () use ($tokenizer) {
-        $ret = ['value' => '', 'alias' => null];
+    $tokenizer = new InternalTokenizer(readFile($file));
+    $res       = [];
+    $callback  = function () use ($tokenizer) {
+        $ret = ['value' => '', 'class' => '', 'alias' => ''];
 
         while ((false !== $tokenizer->next()) &&
                ($tokenizer->getTokenType() === T_STRING || $tokenizer->getTokenType() === T_NS_SEPARATOR ||
@@ -116,10 +108,13 @@ function getClassUses($file): array
                 }
 
                 $ret['alias'] = $tokenizer->getTokenValue();
+                $ret['class'] = '';
                 continue;
             }
 
-            $ret['value'] .= $tokenizer->getTokenValue();
+            $tokenValue    = $tokenizer->getTokenValue();
+            $ret['value'] .= $tokenValue;
+            $ret['class']  = $tokenValue;
         }
 
         return $ret;
