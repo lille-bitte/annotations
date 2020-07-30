@@ -17,10 +17,9 @@ use function strpos;
  */
 class DocLexer extends AbstractLexer
 {
-    const T_INTEGER           = \T_LNUMBER;
-    const T_FLOAT             = \T_DNUMBER;
-    const T_STRING            = \T_CONSTANT_ENCAPSED_STRING;
-
+    const T_INTEGER            = \T_LNUMBER;
+    const T_FLOAT              = \T_DNUMBER;
+    const T_STRING             = \T_CONSTANT_ENCAPSED_STRING;
     const T_START_ANNOTATION   = 100;
     const T_OPEN_PARENTHESIS   = 101;
     const T_CLOSE_PARENTHESIS  = 102;
