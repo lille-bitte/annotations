@@ -39,8 +39,8 @@ abstract class AbstractLexer implements LexerInterface
      */
     public function reset()
     {
-        $this->input = null;
-        $this->token = null;
+        $this->input    = null;
+        $this->token    = null;
         $this->position = 0;
     }
 
@@ -146,7 +146,7 @@ abstract class AbstractLexer implements LexerInterface
         }
 
         $token = $this->input[$this->position];
-        $type = $this->getTokenType($token['value']);
+        $type  = $this->getTokenType($token['value']);
 
         return $type;
     }
