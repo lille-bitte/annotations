@@ -102,8 +102,7 @@ class InternalTokenizer implements TokenizerInterface
     public function getTokenType($token = null)
     {
         if (null === $token) {
-            $token = $this->getToken();
-            $token = $token[0];
+            $token = $this->getToken()[0];
         }
 
         return null === $token ? null : $token;
