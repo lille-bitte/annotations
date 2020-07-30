@@ -3,7 +3,6 @@
 namespace LilleBitte\Annotations\Tests;
 
 use LilleBitte\Annotations\AnnotationReader;
-use LilleBitte\Annotations\ClassRegistry;
 use LilleBitte\Annotations\DocParser;
 use LilleBitte\Annotations\ReaderInterface;
 use LilleBitte\Annotations\Tests\Fixtures\Foo;
@@ -58,130 +57,79 @@ class AnnotationReaderTest extends TestCase
 
     public function testCanGetListOfInstanceFromAnnotatedClass()
     {
-        ClassRegistry::register(Foo::class);
-
         $reader = new AnnotationReader();
         $reader->setIgnoredAnnotationNames(['gmail']);
         $foo = $reader->getClassAnnotations(new ReflectionClass($this));
-
-        ClassRegistry::reset();
-
         $this->assertInstanceOf(Foo::class, $foo[0]->instance);
     }
 
     public function testCanGetSpecificClassInstanceFromAnnotatedClass()
     {
-        ClassRegistry::register(Foo::class);
-
         $reader = new AnnotationReader();
         $reader->setIgnoredAnnotationNames(['gmail']);
-        $foo = $reader->getClassAnnotation(
-            new ReflectionClass($this),
-            Foo::class
-        );
-
-        ClassRegistry::reset();
-
+        $foo = $reader->getClassAnnotation(new ReflectionClass($this), Foo::class);
         $this->assertInstanceOf(Foo::class, $foo);
     }
 
     public function testCannotGetSpecificClassInstanceFromAnnotatedClass()
     {
-        ClassRegistry::register(Foo::class);
-
         $reader = new AnnotationReader();
         $reader->setIgnoredAnnotationNames(['gmail']);
-        $foo = $reader->getClassAnnotation(
-            new ReflectionClass($this),
-            Bar::class
-        );
-
-        ClassRegistry::reset();
-
+        $foo = $reader->getClassAnnotation(new ReflectionClass($this), Bar::class);
         $this->assertNull($foo);
     }
 
     public function testCanGetListOfInstanceFromAnnotatedMethod()
     {
-        ClassRegistry::register(Foo::class);
-
         $reader = new AnnotationReader();
         $reader->setIgnoredAnnotationNames(['gmail']);
         $refl = (new ReflectionClass($this))->getMethod('dummyMethodForTesting');
         $foo = $reader->getMethodAnnotations($refl);
-
-        ClassRegistry::reset();
-
         $this->assertInstanceOf(Foo::class, $foo[0]->instance);
     }
 
     public function testCanGetSpecificClassInstanceFromAnnotatedMethod()
     {
-        ClassRegistry::register(Foo::class);
-
         $reader = new AnnotationReader();
         $reader->setIgnoredAnnotationNames(['gmail']);
         $refl = (new ReflectionClass($this))->getMethod('dummyMethodForTesting');
         $foo = $reader->getMethodAnnotation($refl, Foo::class);
-
-        ClassRegistry::reset();
-
         $this->assertInstanceOf(Foo::class, $foo);
     }
 
     public function testCannotGetSpecificClassInstanceFromAnnotatedMethod()
     {
-        ClassRegistry::register(Foo::class);
-
         $reader = new AnnotationReader();
         $reader->setIgnoredAnnotationNames(['gmail']);
         $refl = (new ReflectionClass($this))->getMethod('dummyMethodForTesting');
         $foo = $reader->getMethodAnnotation($refl, Bar::class);
-
-        ClassRegistry::reset();
-
         $this->assertNull($foo);
     }
 
     public function testCanGetListOfInstanceFromAnnotatedProperty()
     {
-        ClassRegistry::register(Foo::class);
-
         $reader = new AnnotationReader();
         $reader->setIgnoredAnnotationNames(['gmail']);
         $refl = (new ReflectionClass($this))->getProperty('foo');
         $foo = $reader->getPropertyAnnotations($refl);
-
-        ClassRegistry::reset();
-
         $this->assertInstanceOf(Foo::class, $foo[0]->instance);
     }
 
     public function testCanGetSpecificClassInstanceFromAnnotatedProperty()
     {
-        ClassRegistry::register(Foo::class);
-
         $reader = new AnnotationReader();
         $reader->setIgnoredAnnotationNames(['gmail']);
         $refl = (new ReflectionClass($this))->getProperty('foo');
         $foo = $reader->getPropertyAnnotation($refl, Foo::class);
-
-        ClassRegistry::reset();
-
         $this->assertInstanceOf(Foo::class, $foo);
     }
 
     public function testCannotGetSpecificClassInstanceFromAnnotatedProperty()
     {
-        ClassRegistry::register(Foo::class);
-
         $reader = new AnnotationReader();
         $reader->setIgnoredAnnotationNames(['gmail']);
         $refl = (new ReflectionClass($this))->getProperty('foo');
         $foo = $reader->getPropertyAnnotation($refl, Bar::class);
-
-        ClassRegistry::reset();
-
         $this->assertNull($foo);
     }
 }
