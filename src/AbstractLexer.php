@@ -175,10 +175,7 @@ abstract class AbstractLexer implements LexerInterface
     public function peekType()
     {
         $val = $this->peek();
-
-        return null !== $val
-            ? $val['type']
-            : null;
+        return null !== $val ? $val['type'] : null;
     }
 
     /**
@@ -190,10 +187,7 @@ abstract class AbstractLexer implements LexerInterface
     public function peekValue()
     {
         $val = $this->peek();
-
-        return null != $val
-            ? $val['value']
-            : null;
+        return null != $val ? $val['value'] : null;
     }
 
     /**
