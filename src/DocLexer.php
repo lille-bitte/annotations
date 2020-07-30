@@ -85,9 +85,7 @@ class DocLexer extends AbstractLexer
         }
 
         if (is_numeric($token)) {
-            return false !== strpos($token, '.')
-                ? self::T_FLOAT
-                : self::T_INTEGER;
+            return false !== strpos($token, '.') ? self::T_FLOAT : self::T_INTEGER;
         }
 
         if ($token === "true") {
@@ -98,9 +96,7 @@ class DocLexer extends AbstractLexer
             return self::T_FALSE;
         }
 
-        return isset($this->symbolToConst[$token])
-            ? $this->symbolToConst[$token]
-            : null;
+        return isset($this->symbolToConst[$token]) ? $this->symbolToConst[$token] : null;
     }
 
     /**
@@ -108,10 +104,7 @@ class DocLexer extends AbstractLexer
      */
     public function getTokenName($token = null)
     {
-        $type = null === $token
-            ? $this->getTokenType()
-            : $this->getTokenType($token);
-
+        $type = null === $token ? $this->getTokenType() : $this->getTokenType($token);
         return $this->serializeType($type);
     }
 
@@ -123,9 +116,7 @@ class DocLexer extends AbstractLexer
      */
     public function serializeType($type)
     {
-        return !isset($this->constToName[$type])
-            ? null
-            : $this->constToName[$type];
+        return !isset($this->constToName[$type]) ? null : $this->constToName[$type];
     }
 
     /**
