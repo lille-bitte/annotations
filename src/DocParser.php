@@ -171,14 +171,14 @@ final class DocParser
             return null;
         }
 
-        $tmp = explode("\\", $names);
+        $tmp     = explode("\\", $names);
         $aliased = false;
         $matched = false;
 
         // match for an alias.
         foreach ($this->uses as $el) {
             if ($tmp[count($tmp) - 1] === $el['alias']) {
-                $names = $el['value'];
+                $names   = $el['value'];
                 $aliased = true;
                 break;
             }
@@ -186,7 +186,7 @@ final class DocParser
 
         if (!$aliased) {
             foreach ($this->uses as $el) {
-                $splitted = explode("\\", $el['value']);
+                $splitted  = explode("\\", $el['value']);
                 $className = $splitted[count($splitted) - 1];
 
                 if ($tmp[count($tmp) - 1] === $className) {
@@ -206,24 +206,7 @@ final class DocParser
             );
         }
 
-        if (!ClassRegistry::has($names)) {
-            return null;
-        }
-
-        $tuple = ClassRegistry::get($names);
-        $tmp = empty($tuple['namespace'])
-            ? $tuple['class']
-            : $tuple['namespace'] . "\\" . $tuple['class'];
-
-        if (!class_exists($tmp)) {
-            throw AnnotationException::classNotExists(
-                __METHOD__,
-                $tmp
-            );
-        }
-
-        $param = $this->parseParenthesis();
-
+        $param      = $this->parseParenthesis();
         $parameters = null === $param
             ? [null]
             : array_merge(
@@ -231,15 +214,21 @@ final class DocParser
                 empty($param['named-parameters']) ? [] : [$param['named-parameters']]
             );
 
-        $refl = new ReflectionClass($tmp);
+        foreach ($this->uses as $use) {
+            if ($names === $use['alias'] || $names === $use['class']) {
+                $actualFqcn = $use['value'];
+                break;
+            }
+        }
 
+        $refl     = new ReflectionClass(isset($actualFqcn) ? $actualFqcn : $names);
         $instance = $refl->hasMethod('__construct')
             ? $refl->newInstanceArgs($parameters)
             : $refl->newInstanceWithoutConstructor();
 
-        $ret = new stdClass;
-        $ret->class = $tmp;
-        $ret->context = $this->getContext();
+        $ret           = new stdClass;
+        $ret->class    = $refl->getName();
+        $ret->context  = $this->getContext();
         $ret->instance = $instance;
 
         return $ret;
@@ -359,7 +348,7 @@ final class DocParser
 
         $token = $this->parseLiteral();
 
-        $ret = new \stdClass;
+        $ret        = new \stdClass;
         $ret->field = $key;
         $ret->value = $token;
 
