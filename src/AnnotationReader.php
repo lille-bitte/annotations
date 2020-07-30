@@ -68,7 +68,6 @@ class AnnotationReader implements ReaderInterface
     ];
 
     /**
-     * AnnotationReader constructor.
      * @param DocParser|null $parser
      */
     public function __construct(DocParser $parser = null)
@@ -94,10 +93,7 @@ class AnnotationReader implements ReaderInterface
         $this->parser->setClassUses(getClassUses($class->getFileName()));
         $this->parser->setIgnoredAnnotationNames($this->mergeBothIgnoredAnnotationNames());
 
-        return $this->parser->parse(
-            $class->getDocComment(),
-            sprintf("class %s", $class->getName())
-        );
+        return $this->parser->parse($class->getDocComment(), sprintf("class %s", $class->getName()));
     }
 
     /**
@@ -106,10 +102,7 @@ class AnnotationReader implements ReaderInterface
     public function getClassAnnotation(ReflectionClass $class, $name)
     {
         $annotations = $this->getClassAnnotations($class);
-        $context = sprintf(
-            "class %s",
-            $class->getName()
-        );
+        $context     = sprintf("class %s", $class->getName());
 
         foreach ($annotations as $annotation) {
             if ($name === $annotation->class && $annotation->context === $context) {
@@ -125,20 +118,13 @@ class AnnotationReader implements ReaderInterface
      */
     public function getMethodAnnotations(ReflectionMethod $method): array
     {
-        $class = $method->getDeclaringClass();
-        $context = sprintf(
-            "method %s::%s",
-            $class->getName(),
-            $method->getName()
-        );
+        $class   = $method->getDeclaringClass();
+        $context = sprintf("method %s::%s", $class->getName(), $method->getName());
 
         $this->parser->setClassUses(getClassUses($class->getFileName()));
         $this->parser->setIgnoredAnnotationNames($this->mergeBothIgnoredAnnotationNames());
 
-        return $this->parser->parse(
-            $method->getDocComment(),
-            $context
-        );
+        return $this->parser->parse($method->getDocComment(), $context);
     }
 
     /**
@@ -147,12 +133,8 @@ class AnnotationReader implements ReaderInterface
     public function getMethodAnnotation(ReflectionMethod $method, $name)
     {
         $annotations = $this->getMethodAnnotations($method);
-        $class = $method->getDeclaringClass();
-        $context = sprintf(
-            "method %s::%s",
-            $class->getName(),
-            $method->getName()
-        );
+        $class       = $method->getDeclaringClass();
+        $context     = sprintf("method %s::%s", $class->getName(), $method->getName());
 
         foreach ($annotations as $annotation) {
             if ($name === $annotation->class && $context === $annotation->context) {
@@ -168,20 +150,13 @@ class AnnotationReader implements ReaderInterface
      */
     public function getPropertyAnnotations(ReflectionProperty $property): array
     {
-        $class = $property->getDeclaringClass();
-        $context = sprintf(
-            "property %s::\$%s",
-            $class->getName(),
-            $property->getName()
-        );
+        $class   = $property->getDeclaringClass();
+        $context = sprintf("property %s::\$%s", $class->getName(),$property->getName());
 
         $this->parser->setClassUses(getClassUses($class->getFileName()));
         $this->parser->setIgnoredAnnotationNames($this->mergeBothIgnoredAnnotationNames());
 
-        return $this->parser->parse(
-            $property->getDocComment(),
-            $context
-        );
+        return $this->parser->parse($property->getDocComment(), $context);
     }
 
     /**
@@ -190,12 +165,8 @@ class AnnotationReader implements ReaderInterface
     public function getPropertyAnnotation(ReflectionProperty $property, $name)
     {
         $annotations = $this->getPropertyAnnotations($property);
-        $class = $property->getDeclaringClass();
-        $context = sprintf(
-            "property %s::\$%s",
-            $class->getName(),
-            $property->getName()
-        );
+        $class       = $property->getDeclaringClass();
+        $context     = sprintf("property %s::\$%s", $class->getName(), $property->getName());
 
         foreach ($annotations as $annotation) {
             if ($name === $annotation->class && $context === $annotation->context) {
