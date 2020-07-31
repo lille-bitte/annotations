@@ -261,8 +261,7 @@ final class DocParser
     private function parseDirective()
     {
         $this->lexer->next();
-        $val = $this->lexer->getToken();
-        return $val['value'];
+        return $this->lexer->getToken()['value'];
     }
 
     /**
