@@ -155,7 +155,7 @@ class AnnotationReader implements ReaderInterface
     public function getPropertyAnnotations(ReflectionProperty $property): array
     {
         $class   = $property->getDeclaringClass();
-        $context = sprintf("property %s::\$%s", $class->getName(),$property->getName());
+        $context = sprintf("property %s::\$%s", $class->getName(), $property->getName());
 
         $this->parser->setClassUses($this->phpFileParser->getClassUses($class->getFileName()));
         $this->parser->setIgnoredAnnotationNames($this->mergeBothIgnoredAnnotationNames());
