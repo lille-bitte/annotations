@@ -30,10 +30,29 @@ class InternalTokenizer implements TokenizerInterface
      */
     private $position;
 
-    public function __construct($contents)
+    /**
+     * @var string
+     */
+    private $content;
+
+    /**
+     * Get content.
+     *
+     * @return string
+     */
+    public function getContent()
     {
-        $this->reset();
-        $this->parseToken($contents);
+        return $this->content;
+    }
+
+    /**
+     * Set content.
+     *
+     * @param string $content Input content.
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
     }
 
     /**
@@ -45,6 +64,17 @@ class InternalTokenizer implements TokenizerInterface
     private function parseToken($contents)
     {
         $this->token = $this->normalizeParsedToken(token_get_all($contents));
+    }
+
+    /**
+     * Refresh list of parsed tokens.
+     *
+     * @return void
+     */
+    public function refresh()
+    {
+        $this->reset();
+        $this->parseToken($this->getContent());
     }
 
     /**
