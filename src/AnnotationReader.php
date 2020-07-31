@@ -23,6 +23,11 @@ class AnnotationReader implements ReaderInterface
     private $parser;
 
     /**
+     * @var PhpFileParser
+     */
+    private $phpFileParser;
+
+    /**
      * @var array
      */
     private $globalIgnoredAnnotationNames = [
@@ -72,9 +77,8 @@ class AnnotationReader implements ReaderInterface
      */
     public function __construct(DocParser $parser = null)
     {
-        $this->parser = null === $parser
-            ? new DocParser
-            : $parser;
+        $this->parser        = null === $parser ? new DocParser() : $parser;
+        $this->phpFileParser = new PhpFileParser();
     }
 
     /**
@@ -90,7 +94,7 @@ class AnnotationReader implements ReaderInterface
      */
     public function getClassAnnotations(ReflectionClass $class): array
     {
-        $this->parser->setClassUses(getClassUses($class->getFileName()));
+        $this->parser->setClassUses($this->phpFileParser->getClassUses($class->getFileName()));
         $this->parser->setIgnoredAnnotationNames($this->mergeBothIgnoredAnnotationNames());
 
         return $this->parser->parse($class->getDocComment(), sprintf("class %s", $class->getName()));
@@ -121,7 +125,7 @@ class AnnotationReader implements ReaderInterface
         $class   = $method->getDeclaringClass();
         $context = sprintf("method %s::%s", $class->getName(), $method->getName());
 
-        $this->parser->setClassUses(getClassUses($class->getFileName()));
+        $this->parser->setClassUses($this->phpFileParser->getClassUses($class->getFileName()));
         $this->parser->setIgnoredAnnotationNames($this->mergeBothIgnoredAnnotationNames());
 
         return $this->parser->parse($method->getDocComment(), $context);
@@ -153,7 +157,7 @@ class AnnotationReader implements ReaderInterface
         $class   = $property->getDeclaringClass();
         $context = sprintf("property %s::\$%s", $class->getName(),$property->getName());
 
-        $this->parser->setClassUses(getClassUses($class->getFileName()));
+        $this->parser->setClassUses($this->phpFileParser->getClassUses($class->getFileName()));
         $this->parser->setIgnoredAnnotationNames($this->mergeBothIgnoredAnnotationNames());
 
         return $this->parser->parse($property->getDocComment(), $context);
